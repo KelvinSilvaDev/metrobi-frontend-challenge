@@ -24,14 +24,12 @@ const getMaxValue = (carrotTypes: CarrotType[], capacity: number): number => {
 
   // Fill the dp array using the Knapsack algorithm
   for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= capacity; j++) {
-      const weight = carrotTypes[i - 1].kg;
-      const value = carrotTypes[i - 1].price;
-
+    const weight = carrotTypes[i - 1].kg;
+    const value = carrotTypes[i - 1].price;
+    for (let j = 0; j <= capacity; j++) {
+      dp[i][j] = dp[i - 1][j];
       if (weight <= j) {
-        dp[i][j] = Math.max(value + dp[i - 1][j - weight], dp[i - 1][j]);
-      } else {
-        dp[i][j] = dp[i - 1][j];
+        dp[i][j] = Math.max(dp[i][j], dp[i][j - weight] + value);
       }
     }
   }

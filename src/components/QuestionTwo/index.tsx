@@ -12,12 +12,13 @@ hljs.registerLanguage("javascript", javascript);
 export const QuestionTwo: React.FC = () => {
   const codeSnippet = `
   async function writeArrayItems(array) {
-    for (let i = 0; i < array.length; i++) {
-      console.log(array[i]);
+    await Promise.all(array.map(async (element, i) => {
+      console.log(element);
       const delay = Math.pow(2, i) * 1000;
       await new Promise(resolve => setTimeout(resolve, delay));
-    }
+    }));
   }
+  
   
   `.trim();
 
